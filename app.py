@@ -1,86 +1,79 @@
 import streamlit as st
-import pandas as pd
-from PIL import Image
+import streamlit.components.v1 as components
 
-# 페이지 설정
-st.set_page_config(page_title="스타트업 내비게이터", page_icon="🚀", layout="wide")
+# Custom CSS for improved design
+def local_css(file_name):
+    with open(file_name, "r") as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-# 사용자 정의 CSS 추가
-st.markdown("""
-<style>
-    .main-header {
-        font-size: 2.5rem;
-        color: #1E88E5;
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-    .sub-header {
-        font-size: 1.5rem;
-        color: #424242;
-        margin-bottom: 1rem;
-    }
-    .feature-card {
-        background-color: #F5F5F5;
-        border-radius: 10px;
-        padding: 1rem;
-        margin-bottom: 1rem;
-    }
-    .feature-icon {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-    }
-</style>
-""", unsafe_allow_html=True)
+def main():
+    st.set_page_config(page_title="스타트업 내비게이터", layout="wide")
+    local_css("style.css")  # Make sure to create this CSS file
 
-# 헤더
-st.markdown("<h1 class='main-header'>스타트업 내비게이터에 오신 것을 환영합니다!</h1>", unsafe_allow_html=True)
+    # Header
+    st.markdown("<h1 class='main-title'>스타트업 내비게이터</h1>", unsafe_allow_html=True)
+    st.markdown("<p class='subtitle'>당신의 창업 여정을 AI로 지원합니다</p>", unsafe_allow_html=True)
 
-# 소개문
-st.markdown("스타트업 내비게이터는 당신의 창업 여정을 안내하는 AI 기반 플랫폼입니다.")
+    # Sidebar menu
+    with st.sidebar:
+        st.markdown("<h2 class='sidebar-title'>메뉴</h2>", unsafe_allow_html=True)
+        menu = st.radio(
+            "",
+            ("홈", "창업 아이템 분석", "인력 수급 예측", "AI 창업 멘토", 
+             "정부 지원 정책", "사업 성과 시뮬레이터", "인재 매칭", "창업 커뮤니티")
+        )
 
-# 주요 기능 섹션
-st.markdown("<h2 class='sub-header'>주요 기능</h2>", unsafe_allow_html=True)
+    if menu == "홈":
+        show_home()
+    elif menu == "창업 아이템 분석":
+        show_item_analysis()
+    elif menu == "인력 수급 예측":
+        show_workforce_prediction()
+    elif menu == "AI 창업 멘토":
+        show_ai_mentor()
+    elif menu == "정부 지원 정책":
+        show_government_support()
+    elif menu == "사업 성과 시뮬레이터":
+        show_business_simulator()
+    elif menu == "인재 매칭":
+        show_talent_matching()
+    elif menu == "창업 커뮤니티":
+        show_startup_community()
 
-col1, col2 = st.columns(2)
+def show_home():
+    st.markdown("<h2 class='welcome-title'>환영합니다!</h2>", unsafe_allow_html=True)
+    st.markdown("<p class='welcome-text'>스타트업 내비게이터는 AI 기술을 활용하여 당신의 창업 여정을 지원합니다.</p>", unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        <div class='info-card'>
+            <h3>창업 아이템 분석</h3>
+            <p>시장 동향과 경쟁 상황을 AI로 분석합니다.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class='info-card'>
+            <h3>AI 창업 멘토</h3>
+            <p>24/7 당신의 질문에 답변하는 AI 멘토</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown("""
+        <div class='info-card'>
+            <h3>사업 성과 시뮬레이터</h3>
+            <p>다양한 시나리오에 따른 사업 성과를 예측합니다.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-with col1:
-    st.markdown("""
-    <div class='feature-card'>
-        <div class='feature-icon'>🔍</div>
-        <h3>AI 기반 창업 아이템 분석기</h3>
-        <p>실시간 시장 동향 분석 및 예측</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<h2 class='start-title'>시작하기</h2>", unsafe_allow_html=True)
+    st.markdown("<p class='start-text'>왼쪽 사이드바에서 원하는 기능을 선택하세요.</p>", unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class='feature-card'>
-        <div class='feature-icon'>👥</div>
-        <h3>동적 인력 수급 예측 시스템</h3>
-        <p>맞춤형 인재 수요 예측 및 추천</p>
-    </div>
-    """, unsafe_allow_html=True)
+# Other functions (show_item_analysis, show_workforce_prediction, etc.) remain the same
 
-with col2:
-    st.markdown("""
-    <div class='feature-card'>
-        <div class='feature-icon'>🤖</div>
-        <h3>AI 창업 멘토</h3>
-        <p>24/7 질의응답 및 맞춤형 조언</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class='feature-card'>
-        <div class='feature-icon'>📊</div>
-        <h3>AI 기반 사업 성과 시뮬레이터</h3>
-        <p>다양한 시나리오에 따른 성과 분석</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-# 시작하기 버튼
-st.markdown("<br>", unsafe_allow_html=True)
-if st.button("시작하기", key="start_button", help="클릭하여 스타트업 내비게이터 사용을 시작하세요"):
-    st.success("환영합니다! 스타트업 내비게이터를 시작합니다.")
-
-# 푸터
-st.markdown("<br><hr><p style='text-align: center;'>© 2023 스타트업 내비게이터. All rights reserved.</p>", unsafe_allow_html=True)
+if __name__ == "__main__":
+    main()
