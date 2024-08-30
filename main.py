@@ -144,4 +144,8 @@ def show_talent_matching():
     st.write("이 기능은 아직 개발 중입니다.")
 
 def show_startup_community():
-    st.title("창업 커뮤니티
+    st.title("창업 커뮤니티")
+    st.write("이 기능은 아직 개발 중입니다.")
+
+if __name__ == "__main__":
+    main()
