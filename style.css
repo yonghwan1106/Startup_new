@@ -54,11 +54,3 @@ body {
     font-size: 1em;
     margin-bottom: 0;
 }
-
-.stRadio > label {
-    display: none !important;
-}
-
-.stRadio > div {
-    display: none !important;
-}
