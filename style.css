@@ -1,65 +1,64 @@
 body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: #f0f2f6;
+    font-family: 'Roboto', 'Noto Sans KR', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
 }
 
 .main-title {
-    color: #1E88E5;
-    font-size: 3em;
-    font-weight: bold;
-    margin-bottom: 0;
+    color: #007bff;
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    text-align: center;
 }
 
 .subtitle {
-    color: #424242;
+    color: #6c757d;
     font-size: 1.2em;
     margin-top: 0;
+    text-align: center;
+    margin-bottom: 2em;
 }
 
 .sidebar-title {
-    color: #1E88E5;
+    color: #007bff;
     font-size: 1.5em;
-    font-weight: bold;
+    font-weight: 700;
+    margin-bottom: 1em;
 }
 
-.welcome-title {
-    color: #1E88E5;
-    font-size: 2em;
-    font-weight: bold;
-}
-
-.welcome-text {
-    color: #424242;
-    font-size: 1.1em;
-}
-
-.info-card {
+.menu-card {
     background-color: #ffffff;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-.info-card h3 {
-    color: #1E88E5;
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.menu-card h3 {
+    color: #007bff;
     font-size: 1.3em;
     margin-top: 0;
+    margin-bottom: 0.5em;
 }
 
-.info-card p {
-    color: #424242;
+.menu-card p {
+    color: #6c757d;
     font-size: 1em;
+    margin-bottom: 0;
 }
 
-.start-title {
-    color: #1E88E5;
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-top: 30px;
+.stRadio > label {
+    display: none !important;
 }
 
-.start-text {
-    color: #424242;
-    font-size: 1.1em;
+.stRadio > div {
+    display: none !important;
 }
