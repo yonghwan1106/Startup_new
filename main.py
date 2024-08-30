@@ -7,29 +7,15 @@ def local_css(file_name):
     with open(file_name, "r") as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-def check_device_type():
-    device_check_js = """
-    <script>
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        document.querySelector('#device-type').textContent = 'mobile';
-    } else {
-        document.querySelector('#device-type').textContent = 'desktop';
-    }
-    </script>
-    <p id="device-type" style="display:none;"></p>
-    """
-    components.html(device_check_js, height=0)
-    return st.empty()
-
 def main():
     st.set_page_config(page_title="스타트업 내비게이터", layout="wide")
-    local_css("style.css")
+    local_css("style.css")  # Make sure to create this CSS file
 
-    device_type_container = check_device_type()
-
+    # Header
     st.markdown("<h1 class='main-title'>스타트업 내비게이터</h1>", unsafe_allow_html=True)
     st.markdown("<p class='subtitle'>당신의 창업 여정을 AI로 지원합니다</p>", unsafe_allow_html=True)
 
+    # Sidebar menu
     with st.sidebar:
         st.markdown("<h2 class='sidebar-title'>메뉴</h2>", unsafe_allow_html=True)
         menu = st.radio(
@@ -38,48 +24,30 @@ def main():
              "정부 지원 정책", "사업 성과 시뮬레이터", "인재 매칭", "창업 커뮤니티")
         )
 
+    # API 키 입력 (공통)
     st.sidebar.title("설정")
     api_key = st.sidebar.text_input("Anthropic API 키를 입력하세요", type="password")
     if api_key:
+        st.session_state.anthropic_api_key = api_key
         st.sidebar.success("API 키가 입력되었습니다.")
 
-    if device_type_container.text == 'mobile':
-        show_mobile_content(menu)
-    else:
-        show_pc_content(menu)
-
-def show_pc_content(menu):
+    # 메뉴에 따른 페이지 표시
     if menu == "홈":
         show_home()
     elif menu == "창업 아이템 분석":
         sub01.main()
     elif menu == "인력 수급 예측":
-        sub02.main()
+        sub02.show_workforce_prediction()
     elif menu == "AI 창업 멘토":
-        sub03.main()
+        sub03.show_ai_mentor()
     elif menu == "정부 지원 정책":
-        sub04.main()
+        sub04.show_government_support()
     elif menu == "사업 성과 시뮬레이터":
-        sub05.main()
+        sub05.show_business_simulator()
     elif menu == "인재 매칭":
-        sub06.main()
+        sub06.show_talent_matching()
     elif menu == "창업 커뮤니티":
-        sub07.main()
-
-def show_mobile_content(menu):
-    st.write("모바일에 최적화된 스타트업 내비게이터 화면입니다.")
-    
-    st.subheader("주요 기능")
-    st.write("1. 창업 아이템 분석")
-    st.write("2. 인력 수급 예측")
-    st.write("3. AI 창업 멘토")
-    st.write("4. 정부 지원 정책")
-    st.write("5. 사업 성과 시뮬레이터")
-    st.write("6. 인재 매칭")
-    st.write("7. 창업 커뮤니티")
-    
-    if st.button("자세히 보기"):
-        st.write("모바일에서는 간단한 정보만 제공됩니다. 상세 정보는 PC 버전을 이용해주세요.")
+        sub07.show_startup_community()
 
 def show_home():
     st.markdown("<h2 class='welcome-title'>환영합니다!</h2>", unsafe_allow_html=True)
