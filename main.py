@@ -29,6 +29,8 @@ def main():
     if api_key:
         st.session_state.anthropic_api_key = api_key
         st.sidebar.success("API 키가 입력되었습니다.")
+    else:
+        st.sidebar.warning("API 키를 입력해주세요.")
 
     if menu == "홈":
         show_home()
