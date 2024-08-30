@@ -25,8 +25,11 @@ def main():
         )
 
     # API 키 입력 (공통)
+    if 'anthropic_api_key' not in st.session_state:
+        st.session_state.anthropic_api_key = ""
+    
     st.sidebar.title("설정")
-    api_key = st.sidebar.text_input("Anthropic API 키를 입력하세요", type="password")
+    api_key = st.sidebar.text_input("Anthropic API 키를 입력하세요", type="password", key="api_key_input")
     if api_key:
         st.session_state.anthropic_api_key = api_key
         st.sidebar.success("API 키가 입력되었습니다.")
