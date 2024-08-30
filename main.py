@@ -2,20 +2,19 @@ import streamlit as st
 import streamlit.components.v1 as components
 import sub01, sub02, sub03, sub04, sub05, sub06, sub07
 
-# Custom CSS for improved design
 def local_css(file_name):
     with open(file_name, "r") as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 def main():
+# 페이지 설정
     st.set_page_config(page_title="스타트업 내비게이터", page_icon="🚀", layout="wide")
-    local_css("style.css")  # Make sure to create this CSS file
+    
+    local_css("style.css")
 
-    # Header
-    st.markdown("<h1 class='main-title'>스타트업 내비게이터</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='main-title'>🚀 스타트업 내비게이터</h1>", unsafe_allow_html=True)
     st.markdown("<p class='subtitle'>당신의 창업 여정을 AI로 지원합니다</p>", unsafe_allow_html=True)
 
-    # Sidebar menu
     with st.sidebar:
         st.markdown("<h2 class='sidebar-title'>메뉴</h2>", unsafe_allow_html=True)
         menu = st.radio(
@@ -24,7 +23,6 @@ def main():
              "정부 지원 정책", "사업 성과 시뮬레이터", "인재 매칭", "창업 커뮤니티")
         )
 
-    # API 키 입력 (공통)
     if 'anthropic_api_key' not in st.session_state:
         st.session_state.anthropic_api_key = ""
     
@@ -34,7 +32,6 @@ def main():
         st.session_state.anthropic_api_key = api_key
         st.sidebar.success("API 키가 입력되었습니다.")
 
-    # 메뉴에 따른 페이지 표시
     if menu == "홈":
         show_home()
     elif menu == "창업 아이템 분석":
@@ -56,34 +53,34 @@ def show_home():
     st.markdown("<h2 class='welcome-title'>환영합니다!</h2>", unsafe_allow_html=True)
     st.markdown("<p class='welcome-text'>스타트업 내비게이터는 AI 기술을 활용하여 당신의 창업 여정을 지원합니다.</p>", unsafe_allow_html=True)
     
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown("""
-        <div class='info-card'>
-            <h3>창업 아이템 분석</h3>
-            <p>시장 동향과 경쟁 상황을 AI로 분석합니다.</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown("""
-        <div class='info-card'>
-            <h3>AI 창업 멘토</h3>
-            <p>24/7 당신의 질문에 답변하는 AI 멘토</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown("""
-        <div class='info-card'>
-            <h3>사업 성과 시뮬레이터</h3>
-            <p>다양한 시나리오에 따른 사업 성과를 예측합니다.</p>
-        </div>
-        """, unsafe_allow_html=True)
+    menu_items = [
+        ("창업 아이템 분석", "AI 기술을 활용하여 당신의 창업 아이디어의 시장 가능성을 분석합니다.", sub01.main),
+        ("인력 수급 예측", "데이터 기반으로 필요한 인력을 예측하고 최적의 채용 전략을 제시합니다.", sub02.show_workforce_prediction),
+        ("AI 창업 멘토", "24/7 이용 가능한 AI 멘토가 창업 관련 질문에 답변합니다.", sub03.show_ai_mentor),
+        ("정부 지원 정책", "맞춤형 정부 지원 정책을 찾아 안내해드립니다.", sub04.show_government_support),
+        ("사업 성과 시뮬레이터", "다양한 시나리오에 따른 사업 성과를 예측하고 분석합니다.", sub05.show_business_simulator),
+        ("인재 매칭", "AI 기반 매칭 시스템으로 최적의 인재를 추천합니다.", sub06.show_talent_matching),
+        ("창업 커뮤니티", "다른 창업자들과 경험을 공유하고 네트워킹할 수 있는 공간입니다.", sub07.show_startup_community)
+    ]
+
+    for i in range(0, len(menu_items), 3):
+        cols = st.columns(3)
+        for j in range(3):
+            if i+j < len(menu_items):
+                with cols[j]:
+                    st.markdown(f"""
+                    <div class='info-card'>
+                        <h3>{menu_items[i+j][0]}</h3>
+                        <p>{menu_items[i+j][1]}</p>
+                        <br>
+                        <button onclick="parent.location='{menu_items[i+j][0]}'" class='streamlit-button'>시작하기</button>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    if st.button(f"{menu_items[i+j][0]} 시작", key=f"btn_{i+j}"):
+                        menu_items[i+j][2]()
 
     st.markdown("<h2 class='start-title'>시작하기</h2>", unsafe_allow_html=True)
-    st.markdown("<p class='start-text'>왼쪽 사이드바에서 원하는 기능을 선택하세요.</p>", unsafe_allow_html=True)
+    st.markdown("<p class='start-text'>위의 카드를 클릭하거나 왼쪽 사이드바에서 원하는 기능을 선택하세요.</p>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
