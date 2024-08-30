@@ -7,9 +7,7 @@ def local_css(file_name):
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 def main():
-# 페이지 설정
     st.set_page_config(page_title="스타트업 내비게이터", page_icon="🚀", layout="wide")
-    
     local_css("style.css")
 
     st.markdown("<h1 class='main-title'>🚀 스타트업 내비게이터</h1>", unsafe_allow_html=True)
@@ -72,15 +70,12 @@ def show_home():
                     <div class='info-card'>
                         <h3>{menu_items[i+j][0]}</h3>
                         <p>{menu_items[i+j][1]}</p>
-                        <br>
-                        <button onclick="parent.location='{menu_items[i+j][0]}'" class='streamlit-button'>시작하기</button>
                     </div>
                     """, unsafe_allow_html=True)
-                    if st.button(f"{menu_items[i+j][0]} 시작", key=f"btn_{i+j}"):
+                    if st.button(f"{menu_items[i+j][0]}", key=f"btn_{i+j}"):
                         menu_items[i+j][2]()
 
-    st.markdown("<h2 class='start-title'>시작하기</h2>", unsafe_allow_html=True)
-    st.markdown("<p class='start-text'>위의 카드를 클릭하거나 왼쪽 사이드바에서 원하는 기능을 선택하세요.</p>", unsafe_allow_html=True)
+    st.markdown("<p class='start-text'>원하는 기능의 제목을 클릭하거나 왼쪽 사이드바에서 선택하세요.</p>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
