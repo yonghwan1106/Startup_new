@@ -8,7 +8,7 @@ def local_css(file_name):
 
 def main():
     st.set_page_config(page_title="스타트업 내비게이터",page_icon="🚀", layout="wide")
-    local_css("style1.css")
+    local_css("style.css")
 
     st.markdown("<h1 class='main-title'>🚀 스타트업 내비게이터</h1>", unsafe_allow_html=True)
     st.markdown("<p class='subtitle'>당신의 창업 여정을 AI로 지원합니다</p>", unsafe_allow_html=True)
