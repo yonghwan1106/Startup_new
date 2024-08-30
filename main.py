@@ -5,6 +5,9 @@ def local_css(file_name):
     with open(file_name, "r") as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+def change_menu(new_menu):
+    st.session_state.menu = new_menu
+
 def main():
     st.set_page_config(page_title="스타트업 내비게이터", page_icon="🚀", layout="wide")
     local_css("style.css")
@@ -64,9 +67,7 @@ def show_home():
     for item in menu_items:
         col1, col2 = st.columns([1, 4])
         with col1:
-            if st.button(item[0], key=item[0]):
-                st.session_state.menu = item[0].split(' ')[1]
-                st.experimental_rerun()
+            st.button(item[0], key=item[0], on_click=change_menu, args=(item[0].split(' ')[1],))
         with col2:
             st.markdown(f"<p>{item[1]}</p>", unsafe_allow_html=True)
 
