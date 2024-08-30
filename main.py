@@ -48,8 +48,6 @@ def main():
         sub07.show_startup_community()
 
 def show_home():
-    st.markdown("<h2 class='welcome-title'>환영합니다!</h2>", unsafe_allow_html=True)
-    st.markdown("<p class='welcome-text'>스타트업 내비게이터는 AI 기술을 활용하여 당신의 창업 여정을 지원합니다.</p>", unsafe_allow_html=True)
     
     menu_items = [
         ("창업 아이템 분석", "AI 기술을 활용하여 당신의 창업 아이디어의 시장 가능성을 분석합니다.", sub01.main),
