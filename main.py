@@ -8,7 +8,7 @@ def local_css(file_name):
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 def main():
-    st.set_page_config(page_title="스타트업 내비게이터", layout="wide")
+    st.set_page_config(page_title="스타트업 내비게이터", page_icon="🚀", layout="wide")
     local_css("style.css")  # Make sure to create this CSS file
 
     # Header
