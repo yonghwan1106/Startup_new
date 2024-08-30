@@ -9,6 +9,9 @@ def main():
     st.set_page_config(page_title="스타트업 내비게이터", page_icon="🚀", layout="wide")
     local_css("style.css")
 
+    if 'menu' not in st.session_state:
+        st.session_state.menu = "홈"
+
     with st.sidebar:
         st.markdown("<h2 class='sidebar-title'>🚀 스타트업 내비게이터</h2>", unsafe_allow_html=True)
         menu = st.radio(
@@ -27,21 +30,21 @@ def main():
         st.session_state.anthropic_api_key = api_key
         st.sidebar.success("API 키가 입력되었습니다.")
 
-    if menu == "홈":
+    if st.session_state.menu == "홈":
         show_home()
-    elif menu == "창업 아이템 분석":
+    elif st.session_state.menu == "창업 아이템 분석":
         sub01.main()
-    elif menu == "인력 수급 예측":
+    elif st.session_state.menu == "인력 수급 예측":
         sub02.show_workforce_prediction()
-    elif menu == "AI 창업 멘토":
+    elif st.session_state.menu == "AI 창업 멘토":
         sub03.show_ai_mentor()
-    elif menu == "정부 지원 정책":
+    elif st.session_state.menu == "정부 지원 정책":
         sub04.show_government_support()
-    elif menu == "사업 성과 시뮬레이터":
+    elif st.session_state.menu == "사업 성과 시뮬레이터":
         sub05.show_business_simulator()
-    elif menu == "인재 매칭":
+    elif st.session_state.menu == "인재 매칭":
         sub06.show_talent_matching()
-    elif menu == "창업 커뮤니티":
+    elif st.session_state.menu == "창업 커뮤니티":
         sub07.show_startup_community()
 
 def show_home():
